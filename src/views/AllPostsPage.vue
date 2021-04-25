@@ -28,6 +28,7 @@ export default {
 
     toCreate(){
       this.$router.push({name: "PostCreate"})
+      this.$store.commit("posts/CLEAR_CURRENT_POST")
     }
   },
 

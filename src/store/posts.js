@@ -63,6 +63,10 @@ export default {
             state.posts.push(payload)
         },
 
+        CLEAR_CURRENT_POST(state) {
+            state.currentPost = {}
+        },
+
         START_UPDATE_POST(state, id) {
             state.currentPost = Object.assign({}, state.posts.find(p => p.id == id))
         },
