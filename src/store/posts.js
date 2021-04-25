@@ -108,13 +108,14 @@ export default {
             })
         },
 
-        createPost({commit, state}) {
+        createPost({state}) {
             return new Promise((resolve, reject) => {
                 axios
                     .post(BASE_URL + "posts", state.currentPost)
                     .then(response => {
-                        commit("CREATE_POST", response.data)
                         resolve(response)
+
+                        state.currentPost = {}
                     })
                     .catch(error => {
                         reject(error)
