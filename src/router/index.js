@@ -4,6 +4,7 @@ import MainLayout from "@/views/MainLayout";
 import AllPostsPage from "@/views/AllPostsPage";
 import PostPage from "@/views/PostPage";
 import PostEditPage from "@/views/PostEditPage";
+import PostLayout from "@/views/PostLayout";
 
 Vue.use(VueRouter)
 
@@ -19,9 +20,13 @@ const routes = [
             },
             {
                 path: "posts/:id",
-                name: "PostPage",
-                component: PostPage,
+                component: PostLayout,
                 children: [
+                    {
+                        path: "",
+                        name: "PostPage",
+                        component: PostPage,
+                    },
                     {
                         path: "edit",
                         name: "PostEditPage",

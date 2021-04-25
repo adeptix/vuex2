@@ -11,6 +11,10 @@ export default {
     getters: {
         getPosts: (state) => {
             return state.posts
+        },
+
+        getPostByID: (state) => (id) => {
+            return state.posts.find(p => p.id == id)
         }
     },
 

@@ -1,10 +1,12 @@
 <template>
-  <div>iu195198258iojlkdagv</div>
+<div>
+  <router-view/>
+</div>
 </template>
 
 <script>
 export default {
-  name: "PostEditPage"
+  name: "PostLayout"
 }
 </script>
 
