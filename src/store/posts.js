@@ -1,11 +1,13 @@
 import axios from "axios";
-import {BASE_URL} from "@/consts";
+import {BASE_URL, POSTS_COUNT as limit} from "@/consts";
 
 
 export default {
     namespaced: true,
     state: {
-        posts: []
+        posts: [],
+        lastPage: 0,
+        currentPage: 1,
     },
 
     getters: {
@@ -15,10 +17,34 @@ export default {
 
         getPostByID: (state) => (id) => {
             return state.posts.find(p => p.id == id)
+        },
+
+        getLastPage(state) {
+            return state.lastPage
+        },
+
+        getCurrentPage(state) {
+            return state.currentPage
         }
     },
 
     mutations: {
+        SET_CURRENT_PAGE(state, page) {
+            state.currentPage = page
+        },
+
+        INC_PAGE(state) {
+            state.currentPage++
+        },
+
+        DEC_PAGE(state) {
+            state.currentPage--
+        },
+
+        SET_LAST_PAGE(state, page) {
+            state.lastPage = page
+        },
+
         SET_POSTS(state, payload) {
             state.posts = payload
         },
@@ -46,11 +72,13 @@ export default {
         }
     },
     actions: {
-        getPosts({commit}) {
+        getPosts({commit}, page) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(BASE_URL + "posts")
+                    .get(BASE_URL + `posts?_page=${page}&_limit=${limit}}`)
                     .then(response => {
+                        commit("SET_CURRENT_PAGE", page)
+                        commit("SET_LAST_PAGE", Math.ceil(response.headers["x-total-count"] / limit))
                         commit("SET_POSTS", response.data)
                         resolve(response)
                     })

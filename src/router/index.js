@@ -5,6 +5,7 @@ import AllPostsPage from "@/views/AllPostsPage";
 import PostPage from "@/views/PostPage";
 import PostEditPage from "@/views/PostEditPage";
 import PostLayout from "@/views/PostLayout";
+import PostCreatePage from "@/views/PostCreatePage";
 
 Vue.use(VueRouter)
 
@@ -31,8 +32,13 @@ const routes = [
                         path: "edit",
                         name: "PostEditPage",
                         component: PostEditPage
-                    }
+                    },
                 ]
+            },
+            {
+                path: "posts/create",
+                name: "PostCreate",
+                component: PostCreatePage
             }
         ]
     }

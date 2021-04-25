@@ -5,21 +5,11 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+
 
 export default {
   name: 'App',
-  methods: {
-    ...mapActions({
-      loadPosts: "posts/getPosts",
-      loadComments: "comments/getComments"
-    })
-  },
 
-  mounted() {
-    this.loadPosts()
-    this.loadComments()
-  }
 }
 </script>
 

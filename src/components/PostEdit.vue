@@ -1,13 +1,15 @@
 <template>
-  <div></div>
+  <div class="post_edit"></div>
 </template>
 
 <script>
 export default {
-  name: "PostEditPage"
+  name: "PostEdit"
 }
 </script>
 
 <style scoped>
+  .post_edit {
 
+  }
 </style>

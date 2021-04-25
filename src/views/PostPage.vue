@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import PostCardHeader from "@/components/PostCardHeader";
 import CommentCard from "@/components/CommentCard";
 import CommentField from "@/components/CommentField";
@@ -28,13 +28,24 @@ export default {
     }),
 
     post: function () {
-      return this.getPost(this.$route.params.id)
+      const post = this.getPost(this.$route.params.id)
+      if (post !== undefined) {
+        this.loadComments(post.id)
+      }
+
+      return post
     },
 
     comments: function () {
       return this.getComments(this.$route.params.id)
     }
-  }
+  },
+
+  methods: {
+    ...mapActions({
+      loadComments : "comments/getComments"
+    }),
+  },
 }
 </script>
 

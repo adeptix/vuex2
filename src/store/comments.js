@@ -61,10 +61,10 @@ export default {
         }
     },
     actions: {
-        getComments({commit}) {
+        getComments({commit}, postID) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(BASE_URL + "comments")
+                    .get(BASE_URL + `comments?post_id=${postID}`)
                     .then(response => {
                         commit("SET_COMMENTS", response.data)
                         resolve(response)
