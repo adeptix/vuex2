@@ -8,6 +8,8 @@ export default {
         posts: [],
         lastPage: 0,
         currentPage: 1,
+
+        currentPost: {}
     },
 
     getters: {
@@ -25,6 +27,14 @@ export default {
 
         getCurrentPage(state) {
             return state.currentPage
+        },
+
+        getEditedPost(state) {
+            return state.currentPost
+        },
+
+        isEdited(state) {
+            return state.currentPost.id !== undefined
         }
     },
 
@@ -53,13 +63,22 @@ export default {
             state.posts.push(payload)
         },
 
-        UPDATE_POST(state, {id, payload}) {
-            const index = state.posts.findIndex(c => c.id == id)
+        START_UPDATE_POST(state, id) {
+            state.currentPost = Object.assign({}, state.posts.find(p => p.id == id))
+        },
+
+        CANCEL_UPDATE_POST(state) {
+            state.currentPost = {}
+        },
+
+        UPDATE_POST(state) {
+            const index = state.posts.findIndex(c => c.id == state.currentPost.id)
             if (index === -1) {
                 return
             }
 
-            state.posts.splice(index, 1, payload)
+            state.posts.splice(index, 1, state.currentPost)
+            state.currentPost = {}
         },
 
         DELETE_POST(state, id) {
@@ -69,6 +88,7 @@ export default {
             }
 
             state.posts.splice(index, 1)
+            state.currentPost = {}
         }
     },
     actions: {
@@ -88,10 +108,10 @@ export default {
             })
         },
 
-        createPost({commit}, payload) {
+        createPost({commit, state}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(BASE_URL + "posts", payload)
+                    .post(BASE_URL + "posts", state.currentPost)
                     .then(response => {
                         commit("CREATE_POST", response.data)
                         resolve(response)
@@ -102,12 +122,12 @@ export default {
             })
         },
 
-        updatePost({commit}, {id, payload}) {
+        updatePost({commit, state}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .put(BASE_URL + `posts/${id}`, payload)
+                    .put(BASE_URL + `posts/${state.currentPost.id}`, state.currentPost)
                     .then(response => {
-                        commit("UPDATE_POST", {id, payload})
+                        commit("UPDATE_POST")
                         resolve(response)
                     })
                     .catch(error => {

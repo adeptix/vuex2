@@ -30,11 +30,6 @@ import {mapGetters} from "vuex";
 export default {
   name: "CommentField",
 
-  data() {
-    return {
-    }
-  },
-
   computed: {
     ...mapGetters({
       comment: "comments/getEditedComment",

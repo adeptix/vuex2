@@ -2,6 +2,7 @@
   <div class="post_list">
     <post-card v-for="post in posts" :key=post.id :post="post"/>
     <paginate-panel/>
+    <button @click="toCreate" class="add_btn">Добавить запись</button>
   </div>
 </template>
 
@@ -24,6 +25,10 @@ export default {
     ...mapActions({
       loadPosts: "posts/getPosts",
     }),
+
+    toCreate(){
+      this.$router.push({name: "PostCreate"})
+    }
   },
 
   watch: {
@@ -44,5 +49,15 @@ export default {
 .post_list {
   display: flex;
   flex-direction: column;
+}
+
+.add_btn {
+  position: -webkit-sticky;
+  position: sticky;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  bottom: 20px;
+  margin-left: 85%;
 }
 </style>
