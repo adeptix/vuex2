@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "id": 0,
+      "title": "First post",
+      "text": "lorem"
+    },
+
+    {
+      "id": 1,
+      "title": "F2t post",
+      "text": "asfeqwr"
+    }
+  ],
+
+  "comments": [
+    {
+      "id": 0,
+      "post_id": 1,
+      "user": "124124afs",
+      "text": "aq14"
+    }
+  ]
+}
